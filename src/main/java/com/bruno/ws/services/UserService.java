@@ -38,4 +38,8 @@ public class UserService {
         return updateUser.map(u -> userRepository.save(new User(u.getId(), user.getFirstName(), user.getLastName(), user.getEmail())))
                 .orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado!"));
     }
+
+    public void delete(Integer id) {
+        userRepository.deleteById(id);
+    }
 }
