@@ -1,12 +1,18 @@
 package com.bruno.ws.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String firstName;
     private String lastName;
@@ -14,7 +20,8 @@ public class User implements Serializable {
 
     public User() { }
 
-    public User(String firstName, String lastName, String email) {
+    public User(String id, String firstName, String lastName, String email) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

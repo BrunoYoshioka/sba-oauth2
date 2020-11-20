@@ -9,5 +9,4 @@ public class WsOauth2Application {
 	public static void main(String[] args) {
 		SpringApplication.run(WsOauth2Application.class, args);
 	}
-
 }
