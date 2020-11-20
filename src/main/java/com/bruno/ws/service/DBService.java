@@ -15,8 +15,8 @@ public class DBService {
     private UserRepository userRepository;
 
     public void instantiateDatabase() throws ParseException {
-        User user1 = new User(null, "João", "Silva", "joao.silva@gmail.com");
-        User user2 = new User(null, "Maria", "Paula", "maria.paula@gmail.com");
+        User user1 = new User("João", "Silva", "joao.silva@gmail.com");
+        User user2 = new User("Maria", "Paula", "maria.paula@gmail.com");
 
         userRepository.saveAll(Arrays.asList(user1, user2));
     }
