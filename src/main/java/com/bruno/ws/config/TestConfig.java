@@ -1,6 +1,6 @@
 package com.bruno.ws.config;
 
-import com.bruno.ws.service.DBService;
+import com.bruno.ws.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

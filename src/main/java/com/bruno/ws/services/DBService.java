@@ -1,4 +1,4 @@
-package com.bruno.ws.service;
+package com.bruno.ws.services;
 
 import com.bruno.ws.domain.User;
 import com.bruno.ws.repository.UserRepository;
