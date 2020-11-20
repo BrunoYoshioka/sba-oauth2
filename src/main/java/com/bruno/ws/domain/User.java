@@ -1,5 +1,7 @@
 package com.bruno.ws.domain;
 
+import com.bruno.ws.dto.UserDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,6 +23,13 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public User(UserDTO userDTO) {
+        this.id = userDTO.getId();
+        this.firstName = userDTO.getFirstName();
+        this.lastName = userDTO.getLastName();
+        this.email = userDTO.getEmail();
     }
 
     public Integer getId() {
