@@ -1,6 +1,8 @@
+/*
 package com.bruno.ws.config;
 
 import com.bruno.ws.domain.User;
+import com.bruno.ws.domain.enums.Role;
 import com.bruno.ws.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -23,6 +25,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         User joao = new User("João", "Silva", "joao.silva@gmail.com");
         User maria = new User("Maria", "Paula", "maria.paula@gmail.com");
 
+        joao.addRole(Role.ROLE_ADMIN);
+
         createUserIfNotFound(joao);
         createUserIfNotFound(maria);
     }
@@ -36,3 +40,4 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return userRepository.save(user);
     }
 }
+*/

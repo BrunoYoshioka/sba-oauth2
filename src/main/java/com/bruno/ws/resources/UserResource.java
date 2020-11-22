@@ -1,6 +1,7 @@
 package com.bruno.ws.resources;
 
 import com.bruno.ws.domain.User;
+import com.bruno.ws.domain.enums.Role;
 import com.bruno.ws.dto.UserDTO;
 import com.bruno.ws.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,6 +50,12 @@ public class UserResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/users/{id}/roles")
+    public ResponseEntity<Set<Role>> findRoles(@PathVariable Integer id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getRoles());
     }
 
 }

@@ -1,10 +1,14 @@
 package com.bruno.ws.domain;
 
+import com.bruno.ws.domain.enums.Role;
 import com.bruno.ws.dto.UserDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class User implements Serializable {
@@ -16,6 +20,11 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+
+    // Um atributo correspondente aos roles do usuário a serem armazenados na base de dados
+    @ElementCollection(fetch=FetchType.EAGER) // acrescentar fetch para garantir que sempre que buscar usuario no banco, busca a role também
+    @CollectionTable(name="ROLES")
+    private Set<String> roles = new HashSet<>();
 
     public User() { }
 
@@ -69,6 +78,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles.stream().map(x /*para cada elemento x da coleção*/ -> Role.toEnum(x)).collect(Collectors.toSet()); //Percorrendo a coleção convertendo todos para o tipo enumerado perfil
+    }
+
+    public void addRole(Role role) {
+        roles.add(role.getDescricao());
     }
 
     @Override
