@@ -1,11 +1,11 @@
 package com.bruno.ws.domain;
 
-import com.bruno.ws.domain.enums.Role;
 import com.bruno.ws.dto.UserDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,11 +20,12 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
+    private boolean enabled;
 
-    // Um atributo correspondente aos roles do usuário a serem armazenados na base de dados
-    @ElementCollection(fetch=FetchType.EAGER) // acrescentar fetch para garantir que sempre que buscar usuario no banco, busca a role também
-    @CollectionTable(name="ROLES")
-    private Set<String> roles = new HashSet<>();
+    @OneToMany(mappedBy = "roles", cascade=CascadeType.ALL)
+    private List<Role> roles;
+
 
     public User() { }
 
@@ -34,11 +35,13 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public User(Integer id, String firstName, String lastName, String email) {
+    public User(Integer id, String firstName, String lastName, String email, String password, boolean enabled) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
+        this.enabled = enabled;
     }
 
     public User(UserDTO userDTO) {
@@ -46,6 +49,16 @@ public class User implements Serializable {
         this.firstName = userDTO.getFirstName();
         this.lastName = userDTO.getLastName();
         this.email = userDTO.getEmail();
+    }
+
+    public User(User user) {
+        super();
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.roles = user.getRoles();
     }
 
     public Integer getId() {
@@ -80,12 +93,28 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Set<Role> getRoles() {
-        return roles.stream().map(x /*para cada elemento x da coleção*/ -> Role.toEnum(x)).collect(Collectors.toSet()); //Percorrendo a coleção convertendo todos para o tipo enumerado perfil
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void addRole(Role role) {
-        roles.add(role.getDescricao());
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

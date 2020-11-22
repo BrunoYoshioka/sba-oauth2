@@ -1,7 +1,6 @@
 package com.bruno.ws.resources;
 
 import com.bruno.ws.domain.User;
-import com.bruno.ws.domain.enums.Role;
 import com.bruno.ws.dto.UserDTO;
 import com.bruno.ws.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

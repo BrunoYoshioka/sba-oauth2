@@ -1,5 +1,6 @@
 package com.bruno.ws.security;
 
+import com.bruno.ws.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 // Como essa classe disponibiliza segurança, deverá herdar WebSecurityConfigurerAdapter para adaptar a autenticação
 @Configuration @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    CustomUserDetailsService userDetailsService;
 
     @Bean // O spring faz escanear essa classe @Configuration com essa anotação
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -29,6 +32,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder());
+        provider.setUserDetailsService(userDetailsService);
         return provider;
     }
 
